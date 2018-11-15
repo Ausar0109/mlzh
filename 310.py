@@ -1,3 +1,4 @@
+
 import pyautogui as pig
 from random import randint, choice
 import time
@@ -83,11 +84,11 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
 
     click3(rand_choose((keyxy[0] + 379, keyxy[1] + 380), 20, 20))
     click3(rand_choose((keyxy[0] + 379, keyxy[1] + 420), 20, 8))
-    #搜寻物品确认按钮
+    # 搜寻物品确认按钮
 
     # 左窗格110 右窗格 370
     click3(rand_choose((keyxy[0] + 110, keyxy[1] + 270), 160, 30))
-    #用来补充弹出换狗粮页面的操作
+    # 用来补充弹出换狗粮页面的操作
     click3(rand_choose((keyxy[0] + 176 + 50, keyxy[1] + 440), 30, 30))
     pig.moveTo(1800, 500, duration=1.5)
 
@@ -141,4 +142,4 @@ if __name__ == '__main__':
     print(keyxy)
 
     while True:
-        mainfunc(things='left', huangou=False, maitili=False, sikao=3)
+        mainfunc(things='right', huangou=False, maitili=False, sikao=0.01)
