@@ -44,6 +44,8 @@ zbx = {
 
 
 def rand_choose(zuobiao_pack):
+    '''输入方框参数 列表[(0,0),100,100]
+       返回该方框内的随机坐标'''
     atuple = zuobiao_pack[0]
     weight = zuobiao_pack[1]
     hight = zuobiao_pack[2]
@@ -51,6 +53,9 @@ def rand_choose(zuobiao_pack):
 
 
 def click3(zuobiao_pack):
+    '''输入方框参数 列表[(0,0),100,100]
+       返回该方框内的随机坐标
+       并触发点击行为'''
     xy = rand_choose(zuobiao_pack)
     pig.moveTo(xy, tween=pig.easeInQuad, duration=0.8)
     pig.click(pause=0.101)
@@ -58,13 +63,14 @@ def click3(zuobiao_pack):
 
 
 def transfer():
+    # pig.moveTo(rand_choose(zbx['window']))
     pig.hotkey('ctrl', 'alt', 'a')
 
     click3(zbx['window'])
     click3(zbx['jietu-queding'])
 
     click3(zbx['QQ-blank'])
-    time.sleep(2)  # 变化
+    time.sleep(1)  # 变化
     pig.hotkey('ctrl', 'v')
 
 keyxy = (0, 0)
@@ -84,7 +90,11 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
         time.sleep(1.5)
         if isinstance(t2, tuple):
             transfer()
-            ii = input()
+            click3(zbx['bufuhuo'])  # 不复活
+            click3(zbx['window'])  # 点击window确认
+            click3(zbx['zailaiyici'])  # 点击再来一次 进入复活准备页面
+            click3(zbx['kaishizhandou'])  # 开始战斗
+            pig.moveTo(rand_choose(zbx['outwindow']))
             break
 
         jiancecishu += 1
@@ -92,7 +102,17 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
             transfer()
 
     click3(zbx['window'])
-    click3(zbx['window'])  # 点击两次弹出宝箱
+    click3(zbx['window'])
+    # 点击两次弹出宝箱
+
+    if sikao:
+        pig.moveTo(rand_choose(zbx['outwindow']), duration=2)
+        sikaoshijian = 230 * sikao * randint(65, 135) / 100
+        sikaoshijian = sikaoshijian // 1
+        print('本次思考时间-----------【 %s 】' % sikaoshijian)
+
+        transfer()
+        time.sleep(sikaoshijian)
 
     if things == 'left':
         click3(zbx['fw-left'])
@@ -104,9 +124,13 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
         click3(zbx['fw-right'])
 
     click3(zbx['wupin1'])
-    click3(zbx['wupin2'])  # 搜寻物品确认按钮
+    click3(zbx['wupin2'])
+    # 搜寻物品确认按钮
 
+    # 左窗格110 右窗格 370
     click3(zbx['zailaiyici'])
+    # 用来补充弹出换狗粮页面的操作
+    click3([(25, 365), 20, 20])
     click3(zbx['kaishizhandou'])
     pig.moveTo(rand_choose(zbx['outwindow']), duration=1.5)
 
@@ -115,5 +139,8 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
     transfer()
 
 if __name__ == '__main__':
+    keyxy = (0, 0)
+    print(keyxy)
+
     while True:
-        mainfunc(things='right', huangou=False, maitili=False, sikao=0.5)
+        mainfunc(things='right', huangou=False, maitili=False, sikao=False)

@@ -66,53 +66,17 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
         transfer()
         time.sleep(sikaoshijian)
 
-    if things == 'left':
-        click3(zbx['fw-left'])
-    elif things == 'left2':
-        click3(zbx['fw-left'])
-        pig.moveTo(rand_choose(zbx['fw-sold']), pause=1.5)  # 给缓冲时间
-        click3(zbx['fw-sold'])
-    else:
-        click3(zbx['fw-right'])
-
-    click3(zbx['wupin1'], zbx['wupin2'])  # 搜寻物品确认按钮
-    #transfer()
-    click3(zbx['zailaiyici'])
+    click3(zbx['fw-right'])
+    click3(zbx['wupin1'], zbx['wupin2'], zbx['zailaiyici'])  # 搜寻物品确认按钮
     pig.moveTo(rand_choose(zbx['outwindow']), duration=1.5)
 
-    if maitili:  # 买体力模块
-        maitilizb = pig.locateCenterOnScreen(jdpath + 'dwpic/shangdian.png')
-        if isinstance(maitilizb, tuple):
-            transfer()
-            click3([maitilizb, 5, 5])
-            time.sleep(2)
-            click3(zbx['shangdian1'], zbx['shangdian2'])
-            click3(zbx['shangdian3'], zbx['shangdian4'], zbx['zailaiyici'])
-            pig.moveTo(rand_choose(zbx['outwindow']), duration=1.5)
-
-    if huangou:  # 换狗粮模块
-        click3(zbx['haoyou'])  # 用来补充弹出换狗粮页面的操作
-        time.sleep(2)
-        if isinstance(pig.locateCenterOnScreen(jdpath + 'dwpic/yiman.png'), tuple):
-            transfer()
-            click3(zbx['shangdian3'])
-            for i in range(huangou):
-                pig.moveTo(rand_choose(zbx['move-right']))
-                pig.dragTo(rand_choose(zbx['move-left']),
-                           duration=randint(5, 15) / 12, button='left')
-            time.sleep(2)
-            click3(zbx['w1'], zbx['w2'], zbx['w3'])
-            click3(zbx['m1'], zbx['m2'], zbx['m3'])
-            click3(zbx['kaishizhandou'])
-            pig.moveTo(rand_choose(zbx['outwindow']), duration=1.5)
-
-    transfer()
     print('本次运行时间:%s' % (datetime.now() - ts).seconds)
     time.sleep(3)
+    transfer()
 
 if __name__ == '__main__':
     while True:
-        mainfunc(things='left2', huangou=15, maitili=False, sikao=False)
+        mainfunc(things='lc', huangou=False, maitili=False, sikao=0.01)
 
 # 第一我没有红水
 # 第二不动永远被动
