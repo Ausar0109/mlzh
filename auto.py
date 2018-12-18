@@ -19,7 +19,7 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
     jiancecishu = 0
     while True:
         t1 = pig.locateCenterOnScreen(jdpath + 'dwpic/shengli.png')
-        time.sleep(5)
+        time.sleep(10)
         if isinstance(t1, tuple):
             break
         t2 = pig.locateCenterOnScreen(jdpath + 'dwpic/siwang.png')
@@ -54,10 +54,13 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
         click3(zbx['fw-left'])
         pig.moveTo(rand_choose(zbx['fw-sold']), pause=0.5)  # 给缓冲时间
         click3(zbx['fw-sold'])
+        click3(zbx['zailaiyici'])
     else:
         click3(zbx['fw-right'])
 
-    click3(zbx['wupin1'], zbx['wupin2'], zbx['zailaiyici'])
+    click3(zbx['wupin1'], zbx['wupin2'])
+    find_pic_click('shengdan')
+    click3(zbx['zailaiyici'])
     pig.moveTo(rand_choose(zbx['outwindow']), duration=1.5)
 
     if maitili:  # 买体力模块
@@ -70,8 +73,9 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
     if huangou:  # 换狗粮模块
         click3(zbx['haoyou'])  # 用来补充弹出换狗粮页面的操作
         time.sleep(2)
-        if isinstance(pig.locateCenterOnScreen(jdpath + 'dwpic/yiman.png'), tuple):
+        if isinstance(find_pic('yiman'), tuple):
             transfer()
+            time.sleep(1)
             click3(zbx['shangdian3'])
             for i in range(huangou):
                 pig.moveTo(rand_choose(zbx['move-right']))
@@ -89,7 +93,7 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
 
 if __name__ == '__main__':
     while True:
-        mainfunc(things='right', huangou=0, maitili=True, sikao=0.01)
+        mainfunc(things='left', huangou=0, maitili=True, sikao=0.02)
 
 # 第一我没有红水
 # 第二不动永远被动

@@ -18,7 +18,7 @@ def main(Nnum=100, timed=30, loopnumber=3):
             login()
 
             if Nnum - ixy - 65 > 0:
-                ccenter('检测时间剩余 %s--%s' % ((Nnum - ixy - 30), timed))
+                ccenter('检测时间剩余 %s--%s' % ((Nnum - ixy - 65), timed))
                 time.sleep((Nnum - ixy - 65) * timed)
             else:
                 ccenter('无剩余时间')

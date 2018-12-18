@@ -24,13 +24,16 @@ def login(yidi=True):
 
     ppaste('apple7342001')
     find_pic_click('denglu', timesleep=2)
-    time.sleep(40)
+    find_pic_click('denglu', timesleep=2)
+    time.sleep(60)
 
     for i in range(4):
         find_pic_click('login_ad', timesleep=2)
+    for i in range(4):
+        find_pic_click('yanchi', timesleep=0)
 
     click3(zbx['touchtostart'])
-    time.sleep(30)
+    time.sleep(10)
 
     if not isinstance(find_pic('liwu-guanbi'), tuple):
         click3(zbx['goumaidaoju-guanbi'])
@@ -47,10 +50,14 @@ def ShangDian_SouSuo():
     click3(zbx['shangdian-goumai'])
 
     def jiance():
-        if isinstance(find_pic('shangdian-weizhi', 1), tuple):
+        if isinstance(find_pic('shangdian-shenmi', 5), tuple):
             transfer()
             find_pic_click('shangdian-goumai', 2)
             find_pic_click('shangdian-queding', 2)
+        # if isinstance(find_pic('shangdian-weizhi', 0), tuple):
+        #    transfer()
+        #    find_pic_click('shangdian-goumai', 2)
+        #    find_pic_click('shangdian-queding', 2)
         if isinstance(find_pic('shangdian-keyin', 0), tuple):
             transfer()
             find_pic_click('shangdian-goumai', 2)
@@ -59,9 +66,9 @@ def ShangDian_SouSuo():
             transfer()
             find_pic_click('shangdian-goumai', 2)
             find_pic_click('shangdian-queding', 2)
-        if isinstance(find_pic('shangdian-shenmi', 0), tuple):
+        if isinstance(find_pic('shangdian-liangxing', 0), tuple):
             transfer()
-            find_pic_click('shangdian-goumai', 2)
+            find_pic_click('shangdian-gouliang', 2)
             find_pic_click('shangdian-queding', 2)
 
     click3([(400, 135), 200, 60])
@@ -103,7 +110,7 @@ def get_in(doorname):
             xy = find_pic('juren10')
             if isinstance(xy, tuple):
                 click3(zbx['kaishizhandou'])
-                time.sleep(20)
+                time.sleep(10)
                 if isinstance(find_pic('fengge'), tuple):
                     click3(zbx['autobutton'])
 
@@ -133,38 +140,55 @@ def get_in(doorname):
 
 
 def loopmlzh(loopnumber=3):
-    #starttime = datetime.now()
-    #endtime = starttime + minute_70
+
     for i in range(loopnumber):
         ccenter('开始检测...')
+        statess = True
         while True:
             t1 = find_pic('shengli')
-            time.sleep(5)
+            time.sleep(15)
             if isinstance(t1, tuple):
                 break
-            find_pic_click('duanwang',timesleep=0)
+            find_pic_click('duanwang', timesleep=0)
 
             t2 = find_pic('siwang')
-
-        click3(zbx['window'], zbx['window'])
-        time.sleep(2)
-        transfer()
-        click3(zbx['fw-right'])
-        click3(zbx['wupin1'])
-        click3(zbx['wupin2'])
-        if i == loopnumber - 1:
-            click3(zbx['huicheng'])
-            break
-        else:
-            click3(zbx['zailaiyici'])
-            if isinstance(find_pic('shangdian'), tuple):
+            if isinstance(t2, tuple):
                 transfer()
-                click3(zbx['no-energy'])
+                statess = False
+                break
+
+        if statess:
+            click3(zbx['window'], zbx['window'])
+            time.sleep(2)
+            transfer()
+            click3(zbx['fw-right'])
+            click3(zbx['wupin1'])
+            click3(zbx['wupin2'])
+
+            find_pic_click('shengdan')
+
+            if i == loopnumber - 1:
                 click3(zbx['huicheng'])
                 break
-    #xiuxi = endtime - datetime.now()
-    #print('休息时间%s' % xiuxi.seconds)
-    # time.sleep(xiuxi.seconds)
+            else:
+                click3(zbx['zailaiyici'])
+                if isinstance(find_pic('shangdian'), tuple):
+                    transfer()
+                    click3(zbx['no-energy'])
+                    click3(zbx['huicheng'])
+                    break
+        else:
+            click3(zbx['bufuhuo'], zbx['window'])
+            if i == loopnumber - 1:
+                click3(zbx['huicheng'])
+            else:
+                click3(zbx['zailaiyici'])
+                if isinstance(find_pic('shangdian'), tuple):
+                    transfer()
+                    click3(zbx['no-energy'])
+                    click3(zbx['huicheng'])
+                    break
+                click3(zbx['kaishizhandou'])
 
     if not isinstance(find_pic('zhandou'), tuple):
         click3(zbx['goumaidaoju-guanbi'])

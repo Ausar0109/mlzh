@@ -62,13 +62,13 @@ def ccenter(input_str):
     print(input_str)
     click3(zbx['QQ-blank'])
     ppaste(input_str)
-    time.sleep(2)
     find_pic_click('fasong')
 
 
 def transfer():
     pig.hotkey('ctrl', 'alt', 'a')
     click3(zbx['window'], zbx['jietu-queding'], zbx['QQ-blank'])
+    time.sleep(1)
     pig.hotkey('ctrl', 'v')
 
 
@@ -76,5 +76,4 @@ def tfind_pic_click(PicName):
     while True:
         if isinstance(find_pic(PicName), tuple):
             break
-        time.sleep(2)
     find_pic_click(PicName)
