@@ -19,7 +19,7 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
     jiancecishu = 0
     while True:
         t1 = pig.locateCenterOnScreen(jdpath + 'dwpic/shengli.png')
-        time.sleep(10)
+        time.sleep(2)
         if isinstance(t1, tuple):
             break
         t2 = pig.locateCenterOnScreen(jdpath + 'dwpic/siwang.png')
@@ -65,6 +65,7 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
 
     if maitili:  # 买体力模块
         if isinstance(find_pic('liwuxiang'),tuple):
+            transfer()
             find_pic_click('liwuxiang')
             find_pic_click('shouqu')
             find_pic_click('liwuxiang-guanbi')
@@ -89,11 +90,11 @@ def mainfunc(things='left', huangou=True, maitili=False, sikao=True):
 
     print('本次运行时间:%s' % (datetime.now() - ts).seconds)
     time.sleep(5)
-    transfer()
+    #transfer()
 
 if __name__ == '__main__':
     while True:
-        mainfunc(things='left', huangou=0, maitili=True, sikao=0.02)
+        mainfunc(things='left2', huangou=11, maitili=True, sikao=0)
 
 # 第一我没有红水
 # 第二不动永远被动

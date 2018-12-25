@@ -35,19 +35,25 @@ def login(yidi=True):
     click3(zbx['touchtostart'])
     time.sleep(10)
 
-    if not isinstance(find_pic('liwu-guanbi'), tuple):
-        click3(zbx['goumaidaoju-guanbi'])
-        click3(zbx['goumaidaoju-guanbi2'])
-    tfind_pic_click('liwu-guanbi')
+    while True:
+        if not isinstance(find_pic('liwu-guanbi'), tuple):
+            click3(zbx['goumaidaoju-guanbi'])
+            click3(zbx['goumaidaoju-guanbi2'])
+        else:
+            find_pic_click('liwu-guanbi')
+            break
 
 
 def ShangDian_SouSuo():
     ccenter('商店开始检测...')
     while True:
-        if isinstance(find_pic('zhandou', timesleep=5), tuple):
-            break
-    click3(zbx['shangdian'])
-    click3(zbx['shangdian-goumai'])
+        if isinstance(find_pic('zhandou', timesleep=2), tuple):
+            click3(zbx['shangdian'])
+            if not isinstance(find_pic('zhandou', timesleep=2), tuple):
+                click3(zbx['shangdian-goumai'])
+                break
+        else:
+            pass
 
     def jiance():
         if isinstance(find_pic('shangdian-shenmi', 5), tuple):
@@ -98,11 +104,15 @@ def ShangDian_SouSuo():
 
 def get_in(doorname):
     tfind_pic_click('zhandou')
-    if not isinstance(find_pic('dixiacheng', 4), tuple):
-        click3(zbx['goumaidaoju-guanbi'])
-        click3(zbx['goumaidaoju-guanbi2'])
-        find_pic_click('goumaidaoju-guanbiquding')
-    tfind_pic_click('dixiacheng')
+
+    while True:
+        if not isinstance(find_pic('dixiacheng'), tuple):
+            click3(zbx['goumaidaoju-guanbi'])
+            click3(zbx['goumaidaoju-guanbi2'])
+            find_pic_click('goumaidaoju-guanbiquding')
+        else:
+            find_pic_click('dixiacheng')
+            break
 
     if doorname == 'juren':
         while True:
@@ -127,7 +137,7 @@ def get_in(doorname):
             xy = find_pic('julong10')
             if isinstance(xy, tuple):
                 click3(zbx['kaishizhandou'])
-                time.sleep(20)
+                time.sleep(10)
                 if isinstance(find_pic('huoxi'), tuple):
                     click3(zbx['autobutton'])
 
