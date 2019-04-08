@@ -1,4 +1,3 @@
-from .action import click3, zbx, ccenter
-from .action import find_pic, find_pic_click, tfind_pic_click
-
-from .proaccess import *
+from .action import click_at_point
+from .action import find_pic_inscreen
+from .action import find_pic_andclick
