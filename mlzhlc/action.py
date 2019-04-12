@@ -39,7 +39,7 @@ def click_in_block(position_block:tuple):
 def find_pic_inscreen(pic_name:str):
     return pag.locateOnScreen(pic_path + pic_name + '.png', grayscale=True)
 
-def find_pic_andclick(pic_name, moveXY=(0,0), pause=1.5):
+def find_pic_andclick(pic_name, moveXY=(0,0), pause=1):
     findres = find_pic_inscreen(pic_name)
     if findres:
         print('Log--mlzh :::   发现 %s' % pic_name)
@@ -49,6 +49,4 @@ def find_pic_andclick(pic_name, moveXY=(0,0), pause=1.5):
         time.sleep(pause) #如果发现了，休息一秒
     else:
         print('Log--mlzh ::: 未发现 %s' % pic_name)
-        time.sleep(0.1)
-    
 
