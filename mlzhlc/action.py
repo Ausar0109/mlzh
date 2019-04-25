@@ -9,6 +9,7 @@ from . import mlzhpath
 
 pag.PAUSE = 0.25
 pic_path = mlzhpath.__file__[:-11] + 'pic\\'
+sav_path = mlzhpath.__file__[:-11] + 'sav\\'
 
 def ppaste(astr):
     pyperclip.copy(astr)
@@ -39,7 +40,8 @@ def click_in_block(position_block:tuple):
 def find_pic_inscreen(pic_name:str):
     return pag.locateOnScreen(pic_path + pic_name + '.png', grayscale=True)
 
-def find_pic_andclick(pic_name, moveXY=(0,0), pause=1):
+def find_pic_andclick(pic_name, moveXY=(0,0), pause=2):
+    #time.sleep(5)
     findres = find_pic_inscreen(pic_name)
     if findres:
         print('Log--mlzh :::   发现 %s' % pic_name)
@@ -49,4 +51,8 @@ def find_pic_andclick(pic_name, moveXY=(0,0), pause=1):
         time.sleep(pause) #如果发现了，休息一秒
     else:
         print('Log--mlzh ::: 未发现 %s' % pic_name)
+
+def save_screen():
+    time.sleep(2)
+    pag.screenshot().save(sav_path+str(randint(1,9999))+'.png')
 

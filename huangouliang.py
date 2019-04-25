@@ -17,16 +17,16 @@ def huangouliang(num=15):
     find_pic_andclick('空白格子',(-107,0))
     find_pic_andclick('空白格子',(-177,40))
 
-    find_pic_andclick('黑色青蛙',(-60,0))
-    find_pic_andclick('黑色青蛙',(-120,0))
-    find_pic_andclick('黑色青蛙',(-180,0))
+    #find_pic_andclick('黑色青蛙',(-60,0))
+    #find_pic_andclick('黑色青蛙',(-120,0))
+    #find_pic_andclick('黑色青蛙',(-180,0))
 
 
 def daigouliang(shangdian=True):
     find_pic_andclick('复活图标', (200, 5))
 
     find_pic_andclick('战斗胜利闪电')
-    find_pic_andclick('战斗胜利红水')
+    find_pic_andclick('战斗胜利红水',(-185,115))
 
     find_pic_andclick('获得符石道具',(-115,0))
     find_pic_andclick('确认其它道具')
@@ -45,13 +45,14 @@ def daigouliang(shangdian=True):
             find_pic_andclick('世界地图', (-318, -100))
 
     if find_pic_inscreen('开始战斗'):
-        huangouliang()
-        find_pic_andclick('开始战斗')
+        #huangouliang()
+        #find_pic_andclick('开始战斗')
+        pass
 
 
 
 if __name__ == '__main__':
     while True:
         daigouliang()
-        time.sleep(randint(1,10))
+        time.sleep(1)
     
