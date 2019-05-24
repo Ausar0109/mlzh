@@ -10,4 +10,4 @@ from .action import randint
 
 
 def click_in_safe():
-    click_in_block([(85, 340), 10, 10])
+    click_in_block([(83, 342), 28, 4])

@@ -1,16 +1,26 @@
 from mlzhlc import *
 import time
+from random import choice
+from datetime import datetime
+
+randomlist = [1] * 155 + [987] * 3
+print(randomlist)
 
 
 def get_out():
-    for i in range(randint(4, 6)):
-        pag.press('esc', pause=0.5)
-    find_pic_andclick('不结束游戏')
+    while True:
+        if find_pic_inscreen('战斗图标'):  # Break 点位
+            break
+        else:
+            pag.press('esc', pause=0.5)
+            click_in_safe()
+            find_pic_andclick('关闭限时道具确定')
+            find_pic_andclick('不结束游戏')
 
 
 def refresh_screen():
     while True:
-        if find_pic_inscreen('战斗图标'):
+        if find_pic_inscreen('战斗图标'):  # Break 点位
             break
         else:
             click_in_safe()
@@ -25,38 +35,23 @@ def maitili():
 
 def get_in():
     find_pic_andclick('战斗图标', pause=2)
-    countnum = 0
+
     while True:
         if find_pic_inscreen('卡伊洛斯地下城'):
             break
         else:
-            pag.press('esc')
-            find_pic_andclick('关闭限时商品')
-            find_pic_andclick('关闭限时道具')
+            pag.press('esc', pause=2)
             find_pic_andclick('关闭限时道具确定')
-            countnum += 1
-
-        if countnum > 10:
-            get_out()
-            break
 
 
 def choose_reward():
+    save_screen()
     if find_pic_inscreen('获得符石道具'):
-        save_screen()
-        if find_pic_inscreen('攻击速度'):
-            find_pic_andclick('获得符石道具')
-        elif find_pic_inscreen('稀有符文'):
-            find_pic_andclick('获得符石道具', (-115, 0))
-            find_pic_andclick('确认卖出符文')
-        else:
-            find_pic_andclick('获得符石道具')
+        find_pic_andclick('获得符石道具')
     else:
-        find_pic_andclick('战斗胜利红水',
-                          randint(130, 165), pause=1)
-        find_pic_andclick('确认其它道具', pause=1)
-        find_pic_andclick('确认彩虹怪', pause=1)
-        find_pic_andclick('确认刻印石', pause=1)
+        find_pic_andclick('战斗胜利红水', (-177, 110))
+        find_pic_andclick('战斗胜利红水', (-177, 140))
+        find_pic_andclick('战斗胜利红水', (-177, 170))
 
 
 def dowith_battle(nextaction='again'):
@@ -67,43 +62,43 @@ def dowith_battle(nextaction='again'):
         elif nextaction == 'huicheng':
             find_pic_andclick('回城')
 
-    if find_pic_inscreen('龙十一速'):
-        find_pic_andclick('龙十一速', (-450, 2))
-
     if find_pic_inscreen('复活图标'):
         find_pic_andclick('复活图标', (200, 5))
         find_pic_andclick('战斗胜利闪电')
         find_pic_andclick('战斗胜利红水')
-        next_action()
 
-    if find_pic_inscreen('战斗胜利闪电'):
+    if find_pic_inscreen('战斗胜利红水'):
         find_pic_andclick('战斗胜利闪电')
         find_pic_andclick('战斗胜利红水')
+        choose_reward()  # 接上
 
-        choose_reward()
-        next_action()
+    next_action()
 
 
-def dixiacheng_loop():
+def dixiacheng_loop(dornum, scroll=False):
     refresh_screen()
     get_in()
 
-    while True:
+    while not find_pic_inscreen('开始战斗'):
         find_pic_andclick('卡伊洛斯地下城')
-        find_pic_andclick('龙之地下城')
-        find_pic_andclick('龙之地下城', (370, 115))
 
-        if find_pic_inscreen('礼物箱图标'):
-            # maitili()
-            pass
+        if scroll:
+            find_pic_andclick('卡伊洛斯地下城门牌', (-140, 100))
+            pag.scroll(clicks=-50)
+            pag.scroll(clicks=-50)
+
+        find_pic_andclick('卡伊洛斯地下城门牌', (-140, 40 + 60 * dornum))
+        find_pic_andclick('卡伊洛斯地下城门牌', (260, 285))
+
         if find_pic_inscreen('商店图标'):
-            break
-        if find_pic_inscreen('开始战斗'):
-            break
+            if choice(randomlist) == 987:
+                maitili()
+            else:
+                break
 
     find_pic_andclick('开始战斗')
+    save_screen()
 
-    countnum = 0
     while True:
         if find_pic_inscreen('商店图标'):
             break
@@ -114,10 +109,7 @@ def dixiacheng_loop():
         if find_pic_inscreen('战斗图标'):
             break
 
-        countnum += 1
-        if countnum > 25:
-            pag.press('esc')
-        time.sleep(randint(10, 30))
+        time.sleep(randint(10, 20))
 
     get_out()
 
@@ -126,58 +118,65 @@ def jingjichang_loop():
     refresh_screen()
     get_in()
 
-    find_pic_andclick('竞技场图标')
-    find_pic_andclick('普通竞技场')
+    while not find_pic_inscreen('竞技场对战'):
+        find_pic_andclick('竞技场图标')
+        find_pic_andclick('普通竞技场')
 
+    time.sleep(5)
     if find_pic_inscreen('竞技场挑战'):  # 挑战图标完好，说明没有挑战者，进入 竞技场对战
-        find_pic_andclick('竞技场对战')
+        find_pic_andclick('竞技场对战', pause=3)
         find_pic_andclick('竞技场刷新', pause=3)
-        find_pic_andclick('竞技场翅膀')
+        find_pic_andclick('竞技场翅膀', pause=3)
         find_pic_andclick('开始战斗')
 
     else:  # 说明有挑战者，进入 竞技场挑战
-        find_pic_andclick('竞技场对战', (1, 75))
+        find_pic_andclick('竞技场对战', (1, 75), pause=3)
 
         for i in [40, 95, 140, 190, 250]:
-            find_pic_andclick('挑战者翅膀', (195, i))
-            find_pic_andclick('挑战者未备')
-            if find_pic_inscreen('开始战斗'):
-                find_pic_andclick('开始战斗')
-                break
-        pag.scroll(clicks=-100)
-        pag.scroll(clicks=-100)
-        pag.scroll(clicks=-100)
-        for i in [40, 95, 140, 190, 250]:
-            find_pic_andclick('挑战者翅膀', (195, i))
-            find_pic_andclick('挑战者未备')
+            find_pic_andclick('挑战者翅膀', (195, i), pause=3)
+            find_pic_andclick('挑战者未备', pause=3)
             if find_pic_inscreen('开始战斗'):
                 find_pic_andclick('开始战斗')
                 break
 
+        pag.scroll(clicks=-100)
+        pag.scroll(clicks=-100)
+        pag.scroll(clicks=-100)
+
+        for i in [40, 95, 140, 190, 250]:
+            find_pic_andclick('挑战者翅膀', (195, i), pause=3)
+            find_pic_andclick('挑战者未备', pause=3)
+            if find_pic_inscreen('开始战斗'):
+                find_pic_andclick('开始战斗')
+                break
+
+    find_pic_andclick('开始战斗')
+    save_screen()
     countnum = 0
+
     while True:
         if find_pic_inscreen('商店图标'):
             break
         time.sleep(randint(1, 10))
         click_in_safe()
+        click_in_safe()
 
-        find_pic_andclick('一速', (-450, 2))
-        find_pic_andclick('二速', (-450, 2))
-        find_pic_andclick('三速', (-450, 2))
-        find_pic_andclick('四速', (-450, 2))
-        find_pic_andclick('战斗胜利闪电')
-        find_pic_andclick('竞技场名誉')
+        find_pic_andclick('一速', (-445, 2))
+        find_pic_andclick('二速', (-445, 2))
+        find_pic_andclick('三速', (-445, 2))
+        find_pic_andclick('四速', (-445, 2))
+
         find_pic_andclick('关闭竞技场')
         find_pic_andclick('竞技场返回')
 
         if find_pic_inscreen('战斗图标'):
             break
-
-        click_in_safe()
+        if find_pic_inscreen('卡伊洛斯地下城'):
+            break
 
         countnum += 1
-        if countnum > 25:
-            pag.press('esc')
+        if countnum > 10:
+            find_pic_andclick('防御之塔', (-517, 304))
 
     get_out()
 
@@ -196,14 +195,14 @@ def shangdian_loop():
             find_pic_andclick('魔法商店里面', (0, i), pause=1)
             for k in target:
                 if find_pic_inscreen(k):
-                    find_pic_andclick('商店购买')
-                    find_pic_andclick('商店购买2')
-                    find_pic_andclick('商店购买3')
+                    save_screen()
+                    find_pic_andclick('魔法商店里面', (-380, 235))
                     find_pic_andclick('购买确认')
 
     for i in range(4):
+        save_screen()
         find_target_in_fourblock(
-            ['两星魔灵', '两星魔灵2', '神秘召唤书', '传说召唤书', '商店刻印石', '光明黑暗召唤书', '二星风赛拉德曼', '二星风仙女'])
+            ['神秘召唤书', '商店刻印石', '光明黑暗召唤书'] + ['两星魔灵', '两星魔灵2'])
         find_pic_andclick('魔法商店里面', (0, 100))
         pag.scroll(clicks=-1)
         pag.scroll(clicks=-1)
@@ -213,16 +212,65 @@ def shangdian_loop():
     find_pic_andclick('不结束游戏')
 
 
-if __name__ == '__main__':
-    while True:
-        shangdian_loop()
-        time.sleep(randint(10, 30))
-        dixiacheng_loop()
-        time.sleep(randint(10, 30))
-        dixiacheng_loop()
-        time.sleep(randint(10, 30))
-        jingjichang_loop()
-        time.sleep(randint(10, 30))
+def yijie_loop(getnum):
+    refresh_screen()
+    get_in()
 
-        refresh_screen()
-        time.sleep(randint(30, 60))
+    while not find_pic_inscreen('开始战斗'):
+        find_pic_andclick('卡伊洛斯地下城', (155, 1))
+        find_pic_andclick('确认卖出符文')
+        find_pic_andclick('焰火地下城')
+
+        find_pic_andclick('异界地下城门牌', (-20 + 50 * getnum, 45))
+        find_pic_andclick('进行战斗')
+
+        if find_pic_inscreen('商店图标'):
+            break
+            if choice(randomlist) == 987:
+                maitili()
+            else:
+                break
+
+    find_pic_andclick('开始战斗')
+
+    while True:
+        time.sleep(randint(5, 25))
+        click_in_safe()
+
+        if find_pic_inscreen('异界地下城结算'):
+            save_screen()
+            find_pic_andclick('异界地下城结算')
+        find_pic_andclick('异界回城')
+
+        if find_pic_inscreen('战斗图标'):
+            break
+
+        if find_pic_inscreen('商店图标'):
+            break
+
+    get_out()
+
+
+if __name__ == '__main__':
+    get_out()
+    jingjichang_loop()
+    countnum = 0
+    while True:
+        save_screen()
+        countnum += 1
+
+        chos = randint(1, 9)
+        if chos < 4:
+            loca = 3 if datetime.now().weekday() in [0, 1, 2, 3, 6] else 4
+            dixiacheng_loop(loca, 1)
+        elif chos <= 9:
+            dixiacheng_loop(randint(1, 3))
+        else:
+            yijie_loop(randint(1, 5))
+
+        jingjichang_loop()
+
+        if countnum % 4 == 0:
+            shangdian_loop()
+
+        time.sleep(88 * randint(5, 8))

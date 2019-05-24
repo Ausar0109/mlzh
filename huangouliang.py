@@ -10,32 +10,30 @@ def huangouliang(num=15):
     pxy = pxy.left + pxy.width / 2, pxy.top + pxy.height / 2
 
     for i in range(num):
-        pag.click(ysj,duration=0.11,pause=0.11)
-        pag.dragTo(pxy, duration=0.11,pause=0.11)
+        pag.click(ysj, duration=0.5, pause=0.11)
+        pag.dragTo(pxy, duration=0.5, pause=0.11)
 
-    find_pic_andclick('空白格子',(-250,0))
-    find_pic_andclick('空白格子',(-107,0))
-    find_pic_andclick('空白格子',(-177,40))
+    find_pic_andclick('空白格子', (-250, 0))
+    find_pic_andclick('空白格子', (-107, 0))
+    find_pic_andclick('空白格子', (-177, 40))
 
-    #find_pic_andclick('黑色青蛙',(-60,0))
-    #find_pic_andclick('黑色青蛙',(-120,0))
-    #find_pic_andclick('黑色青蛙',(-180,0))
+    find_pic_andclick('黑色青蛙', (-60, 0))
+    find_pic_andclick('黑色青蛙', (-120, 0))
+    find_pic_andclick('黑色青蛙', (-180, 0))
 
 
 def daigouliang(shangdian=True):
-    find_pic_andclick('复活图标', (200, 5))
+    if find_pic_inscreen('战斗胜利红水'):
+        save_screen()
+        click_in_safe()
+        click_in_safe()
+        
+        find_pic_andclick('战斗胜利红水', (-177, 110), pause=0.1)
+        find_pic_andclick('战斗胜利红水', (-177, 150), pause=0.1)
+        find_pic_andclick('获得符石道具', (-115, 0), pause=0.5)
+        find_pic_andclick('确认卖出符文')
 
-    find_pic_andclick('战斗胜利闪电')
-    find_pic_andclick('战斗胜利红水',(-185,115))
-
-    find_pic_andclick('获得符石道具',(-115,0))
-    find_pic_andclick('确认其它道具')
-    find_pic_andclick('确认彩虹怪')
-    find_pic_andclick('确认卖出符文')
-
-    find_pic_andclick('世界地图', (-318, -100))
-
-    print('完成了一次检测~~, 休息一会')
+    find_pic_andclick('世界地图', (-318, -100), pause=0.5)
 
     if shangdian:
         if find_pic_inscreen('商店图标'):
@@ -45,14 +43,11 @@ def daigouliang(shangdian=True):
             find_pic_andclick('世界地图', (-318, -100))
 
     if find_pic_inscreen('开始战斗'):
-        #huangouliang()
-        #find_pic_andclick('开始战斗')
+        # huangouliang()
+        # find_pic_andclick('开始战斗')
         pass
 
 
-
 if __name__ == '__main__':
-    while True:
-        daigouliang()
-        time.sleep(1)
-    
+    while True:     
+        daigouliang(1)
