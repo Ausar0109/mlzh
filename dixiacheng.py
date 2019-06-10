@@ -8,6 +8,7 @@ def dixiacheng_action_after_findpic(shangdian=False):
     #find_pic_andclick('战斗胜利闪电') #
     find_pic_andclick('战斗胜利红水', (-177, randint(120, 150)))
     find_pic_andclick('战斗胜利红水', (-177, randint(150, 180)))
+    find_pic_andclick('战斗胜利红水', (-177, randint(110, 200)))
 
     # find_pic_andclick('获得符石道具')
     # find_pic_andclick('确认其它道具')

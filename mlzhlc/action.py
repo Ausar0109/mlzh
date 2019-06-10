@@ -14,7 +14,7 @@ sav_path = mlzhpath.__file__[:-11] + 'sav\\'
 
 def ppaste(astr):
     pyperclip.copy(astr)
-    pig.hotkey('ctrl', 'v')
+    pag.hotkey('ctrl', 'v')
 
 
 def click_at_point(position: tuple):
@@ -33,7 +33,7 @@ def rand_choose(zuobiao_pack):
     return (x, y)
 
 
-def click_in_block(position_block: tuple):
+def click_in_block(position_block):
     '''[(x,y),weight,hight]'''
     position = rand_choose(position_block)
     pag.moveTo(position, tween=pag.easeInQuad, duration=0.33, pause=0.2)
@@ -43,11 +43,19 @@ def click_in_block(position_block: tuple):
     pag.moveTo(position, duration=0.25, pause=0.25)
 
 
+def click_in_block2(position_block):
+    '''[(x,y),weight,hight]'''
+    position = rand_choose(position_block)
+    pag.moveTo(position, pause=0)
+    pag.click(pause=0)
+
+
 def find_pic_inscreen(pic_name: str):
     return pag.locateOnScreen(pic_path + pic_name + '.png', grayscale=True)
 
 
-def find_pic_andclick(pic_name, moveXY=(0, 0), pause=0, qianzhi=0):
+def find_pic_andclick(pic_name, moveXY=(0, 0),
+                      pause=2, qianzhi=2):
     time.sleep(qianzhi)
     findres = find_pic_inscreen(pic_name)
     if findres:
@@ -60,6 +68,9 @@ def find_pic_andclick(pic_name, moveXY=(0, 0), pause=0, qianzhi=0):
         print('Log--mlzh ::: 未发现 %s' % pic_name)
 
 
-def save_screen():
+def save_screen(picname=False):
     time.sleep(2)
-    pag.screenshot().save(sav_path + str(randint(1, 8)) + '.png')
+    if picname:
+        pag.screenshot().save(sav_path + str(picname) + '.png')
+    else:
+        pag.screenshot().save(sav_path + str(randint(1, 8)) + '.png')

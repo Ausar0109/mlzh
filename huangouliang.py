@@ -17,23 +17,22 @@ def huangouliang(num=15):
     find_pic_andclick('空白格子', (-107, 0))
     find_pic_andclick('空白格子', (-177, 40))
 
+    find_pic_andclick('黑色青蛙', (-180, 0))
     find_pic_andclick('黑色青蛙', (-60, 0))
     find_pic_andclick('黑色青蛙', (-120, 0))
-    find_pic_andclick('黑色青蛙', (-180, 0))
 
 
 def daigouliang(shangdian=True):
-    if find_pic_inscreen('战斗胜利红水'):
-        save_screen()
-        click_in_safe()
-        click_in_safe()
-        
-        find_pic_andclick('战斗胜利红水', (-177, 110), pause=0.1)
-        find_pic_andclick('战斗胜利红水', (-177, 150), pause=0.1)
-        find_pic_andclick('获得符石道具', (-115, 0), pause=0.5)
-        find_pic_andclick('确认卖出符文')
+    # save_screen()
+    click_in_safe()
+    click_in_safe()
 
-    find_pic_andclick('世界地图', (-318, -100), pause=0.5)
+    find_pic_andclick('战斗胜利红水', (-177, 110), 0, 0)
+    find_pic_andclick('战斗胜利红水', (-177, 150), 0, 0)
+    find_pic_andclick('获得符石道具', (-115, 0), 0, 0)
+    find_pic_andclick('确认卖出符文', (0, 0), 0, 0)
+
+    find_pic_andclick('世界地图', (-318, -100), 0, 0)
 
     if shangdian:
         if find_pic_inscreen('商店图标'):
@@ -43,11 +42,12 @@ def daigouliang(shangdian=True):
             find_pic_andclick('世界地图', (-318, -100))
 
     if find_pic_inscreen('开始战斗'):
-        # huangouliang()
-        # find_pic_andclick('开始战斗')
+        huangouliang()
+        find_pic_andclick('开始战斗')
         pass
 
 
 if __name__ == '__main__':
-    while True:     
+    # huangouliang()
+    while True:
         daigouliang(1)
