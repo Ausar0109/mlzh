@@ -3,7 +3,7 @@ import time
 
 
 def daigouliang():
-    find_pic_andclick('复活图标', (200, 5))
+    #find_pic_andclick('复活图标', (200, 5))
 
     find_pic_andclick('战斗胜利红水', (-177, 110), qianzhi=0, pause=0)
     find_pic_andclick('战斗胜利红水', (-177, 150), qianzhi=0, pause=0)

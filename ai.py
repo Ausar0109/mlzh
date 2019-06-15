@@ -4,7 +4,7 @@ from random import choice
 from datetime import datetime
 
 randomlist = [1] * 155 + [987] * 3
-yijielist = [1] * 10 + [2, 3, 4, 5]
+yijielist = [1] * 50 + [2, 2, 2, 3, 4, 5]
 print(randomlist)
 
 
@@ -186,7 +186,7 @@ def shangdian_loop():
             find_pic_andclick('魔法商店里面', (0, i), pause=1)
             for k in target:
                 if find_pic_inscreen(k):
-                    save_screen()
+                    save_screen(k)
                     find_pic_andclick('魔法商店里面', (-380, 235))
                     find_pic_andclick('购买确认')
 
@@ -250,8 +250,8 @@ def jiance_login(tim=20):
         click_in_safe(10)
         if find_pic_inscreen('登录已过期'):
 
-            save_screen('计时40分钟')
-            for i in range(40 * 60 // 30):
+            save_screen('计时60分钟')
+            for i in range(60 * 60 // 30):
                 click_in_safe()
                 time.sleep(randint(20, 40))
 
@@ -278,18 +278,18 @@ if __name__ == '__main__':
     countnum = 0
     while True:
         save_screen('循环开始')
-        dixiacheng_loop(2)
+        dixiacheng_loop(4)
         countnum += 1
 
-        chos = randint(1, 40)
+        chos = randint(4, 50)
         if chos < 3:
             loca = 3 if datetime.now().weekday() in [0, 1, 2, 3, 6] else 4
             dixiacheng_loop(loca, 1)
             dixiacheng_loop(4, 1)
-        elif chos <= 25:
-            dixiacheng_loop(2)
-        elif chos <= 30:
-            dixiacheng_loop(choice([1, 3]))
+        elif chos <= 10:
+            dixiacheng_loop(4)
+        elif chos <= 11:
+            dixiacheng_loop(choice([4, 4]))
         else:
             yijie_loop(choice(yijielist))
 
@@ -298,4 +298,4 @@ if __name__ == '__main__':
         if countnum % 4 == 0:
             shangdian_loop()
 
-        jiance_login(10)
+        jiance_login(12)

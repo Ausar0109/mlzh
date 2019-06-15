@@ -50,4 +50,4 @@ def daigouliang(shangdian=True):
 if __name__ == '__main__':
     # huangouliang()
     while True:
-        daigouliang(1)
+        daigouliang(0)
