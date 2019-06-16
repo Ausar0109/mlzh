@@ -4,12 +4,13 @@ from random import choice
 from datetime import datetime
 
 randomlist = [1] * 155 + [987] * 3
-yijielist = [1] * 50 + [2, 2, 2, 3, 4, 5]
+yijielist = [1] * 50 + [2] * 20 + [3, 4, 5] * 5
 print(randomlist)
 
 
 def get_out():
     while not find_pic_inscreen('战斗图标'):
+        find_pic_andclick('不结束游戏')
         pag.press('esc', pause=0.5)
         click_in_safe()
         find_pic_andclick('关闭限时道具确定')
@@ -198,9 +199,7 @@ def shangdian_loop():
         pag.scroll(clicks=-1)
         pag.scroll(clicks=-1)
 
-    for i in range(randint(3, 5)):
-        pag.press('esc', pause=0.5)
-    find_pic_andclick('不结束游戏')
+    get_out()
 
 
 def yijie_loop(getnum):
@@ -252,8 +251,8 @@ def jiance_login(tim=20):
 
             save_screen('计时60分钟')
             for i in range(60 * 60 // 30):
-                click_in_safe()
-                time.sleep(randint(20, 40))
+               click_in_safe()
+               time.sleep(randint(20, 40))
 
             find_pic_andclick('登录已过期', (1, 82))
             find_pic_andclick('登录已过期', (1, 82))
@@ -279,7 +278,6 @@ if __name__ == '__main__':
     while True:
         save_screen('循环开始')
         dixiacheng_loop(4)
-        countnum += 1
 
         chos = randint(4, 50)
         if chos < 3:
@@ -288,14 +286,15 @@ if __name__ == '__main__':
             dixiacheng_loop(4, 1)
         elif chos <= 10:
             dixiacheng_loop(4)
-        elif chos <= 11:
+        elif chos <= 15:
             dixiacheng_loop(choice([4, 4]))
         else:
             yijie_loop(choice(yijielist))
 
         jingjichang_loop()
 
+        countnum += 1
         if countnum % 4 == 0:
             shangdian_loop()
 
-        jiance_login(12)
+        jiance_login(10)
