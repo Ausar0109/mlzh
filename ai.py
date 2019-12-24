@@ -257,7 +257,7 @@ def jiance_login(tim=20):
             find_pic_andclick('登录已过期', (1, 82))
             find_pic_andclick('登录已过期', (1, 82))
             find_pic_andclick('密码', (0, 0), qianzhi=30, pause=5)
-            ppaste('apple7342001')
+            ppaste('psxiser!')
             find_pic_andclick('登录按钮', qianzhi=5, pause=30)
 
             while not find_pic_inscreen('战斗图标'):
